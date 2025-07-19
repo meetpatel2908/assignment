@@ -3,9 +3,18 @@ const prisma = new PrismaClient();
 
 exports.createstudent = async (req, res) => {
   const { firstName, lastName, rollNumber, gender } = req.body;
+
   if (!firstName || !lastName || !rollNumber || !gender) {
     return res.status(400).json({ error: 'All fields are required' });
   }
+
+  if (!/^[A-Za-z]+$/.test(firstName) || !/^[A-Za-z]+$/.test(lastName)) {
+    return res.status(400).json({ error: 'Names must contain only letters' });
+  }
+
+ if (!/^\d{3,}$/.test(rollNumber)) {
+  return res.status(400).json({ error: 'Roll number must be at least 3 digits' });
+}
 
   try {
     const student = await prisma.student.create({
@@ -13,9 +22,10 @@ exports.createstudent = async (req, res) => {
     });
     res.status(201).json(student);
   } catch (err) {
-    res.status(500).json({ error: 'something went wrong' });
+    res.status(500).json({ error: 'Roll number must be unique or other DB error' });
   }
 };
+
 
 exports.getallStudents = async (req, res) => {
   const students = await prisma.student.findMany();

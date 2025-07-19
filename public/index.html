@@ -12,15 +12,17 @@
     <form id="studentForm">
       <div class="mb-3">
         <label for="firstName" class="form-label">First Name</label>
-        <input type="text" class="form-control" id="firstName" required />
+        <input type="text" id="firstName" class="form-control" required pattern="[A-Za-z]+" title="Only letters allowed" />
       </div>
       <div class="mb-3">
         <label for="lastName" class="form-label">Last Name</label>
-        <input type="text" class="form-control" id="lastName" required />
+        <input type="text" id="lastName" class="form-control" required pattern="[A-Za-z]+" title="Only letters allowed" />
       </div>
       <div class="mb-3">
         <label for="rollNumber" class="form-label">Roll Number</label>
-        <input type="text" class="form-control" id="rollNumber" required />
+       <input type="text" id="rollNumber" class="form-control" required pattern="\d{3,}" title="Enter at least 3 digits" />
+
+
       </div>
       <div class="mb-3">
         <label for="gender" class="form-label">Gender</label>
