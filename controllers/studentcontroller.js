@@ -22,8 +22,14 @@ exports.createstudent = async (req, res) => {
     });
     res.status(201).json(student);
   } catch (err) {
-    res.status(500).json({ error: 'Roll number must be unique or other DB error' });
+  console.error("💥 Prisma error:", err);
+
+  if (err.code === 'P2002' && err.meta?.target?.includes('rollNumber')) {
+    return res.status(400).json({ error: 'This roll number already exists. Please use a different one.' });
   }
+
+  return res.status(500).json({ error: 'Database connection error or unknown DB issue.' });
+}
 };
 
 
