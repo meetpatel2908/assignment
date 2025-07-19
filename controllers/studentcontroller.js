@@ -22,7 +22,7 @@ exports.createstudent = async (req, res) => {
     });
     res.status(201).json(student);
   } catch (err) {
-  console.error("💥 Prisma error:", err);
+  console.error("💥 Prisma error:", err); // 👈 THIS LINE IS CRITICAL
 
   if (err.code === 'P2002' && err.meta?.target?.includes('rollNumber')) {
     return res.status(400).json({ error: 'This roll number already exists. Please use a different one.' });
